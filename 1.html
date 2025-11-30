@@ -1,11 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>O que é JavaScript?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .hora {
+            color: #2c3e50;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+    <h1 id="tituloPrincipal">O que é JavaScript?</h1>
     
+    <div id="conteudo">
+        <p id="motivacao">
+            <strong>Motivação:</strong> O JavaScript foi criado para tornar as páginas web interativas. Antes dele, as páginas eram estáticas e não respondiam às ações dos usuários.
+        </p>
+        
+        <p id="execucao">
+            <strong>Execução no navegador vs servidor:</strong> No navegador o JavaScript roda no computador do usuário, enquanto no servidor (com Node.js) processa dados antes de enviar ao navegador.
+        </p>
+        
+        <p id="sandbox">
+            <strong>Sandbox no navegador:</strong> É um ambiente seguro que impede que o código acesse recursos do sistema operacional, protegendo o usuário.
+        </p>
+        
+        <p id="objetos">
+            <strong>Objetos globais:</strong> 
+            <em>document</em> - manipula a página HTML; 
+            <em>console</em> - exibe mensagens no console; 
+            <em>alert</em> - mostra caixas de diálogo.
+        </p>
+    </div>
+
+    <p id="horaAtual" class="hora"></p>
+
+    <script>
+        // G. Exibir hora atual
+        function atualizarHora() {
+            const agora = new Date();
+            document.getElementById('horaAtual').innerHTML = 
+                `Hora atual: ${agora.toLocaleTimeString()}`;
+        }
+        setInterval(atualizarHora, 1000);
+
+        // E. Mensagem no console
+        console.log("Página carregada com sucesso!");
+
+        // F. Alert de saudação
+        window.onload = function() {
+            alert("Bem-vindo ao estudo sobre JavaScript!");
+            atualizarHora();
+        };
+    </script>
 </body>
 </html>
