@@ -1,11 +1,177 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tipos de Variáveis e Operadores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .variaveis, .operacoes {
+            margin: 25px 0;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            background-color: #ecf0f1;
+        }
+        .tipo-variavel {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        .operacao-item {
+            margin: 15px 0;
+            padding: 12px;
+            background-color: white;
+            border-radius: 4px;
+            border: 1px solid #bdc3c7;
+        }
+        .explicacao {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <h1>Tipos de Variáveis e Operadores</h1>
+        
+        <button onclick="executarDemonstracao()">Executar Demonstração</button>
+
+        <div class="variaveis">
+            <h2>Tipos de Variáveis</h2>
+            <p id="pstring" class="tipo-variavel">String: Aguardando...</p>
+            <p id="pnumber" class="tipo-variavel">Number: Aguardando...</p>
+            <p id="pboolean" class="tipo-variavel">Boolean: Aguardando...</p>
+            <p id="pundefined" class="tipo-variavel">Undefined: Aguardando...</p>
+            <p id="pnull" class="tipo-variavel">Null: Aguardando...</p>
+            <p id="pobject" class="tipo-variavel">Object: Aguardando...</p>
+            <p id="parray" class="tipo-variavel">Array: Aguardando...</p>
+        </div>
+
+        <div class="operacoes">
+            <h2>Operações entre Tipos Diferentes</h2>
+            <div id="resultadosOperacoes">
+                <!-- Resultados das operações serão inseridos aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function executarDemonstracao() {
+            // Declaração das variáveis
+            const texto = "JavaScript";
+            const numero = 42;
+            const booleano = true;
+            const indefinido = undefined;
+            const nulo = null;
+            const objeto = {nome: "Objeto", tipo: "Literal"};
+            const array = [1, 2, 3, 4, 5];
+
+            // Exibição dos tipos
+            document.getElementById('pstring').innerText = `String: "${texto}" - Tipo: ${typeof texto}`;
+            document.getElementById('pnumber').innerText = `Number: ${numero} - Tipo: ${typeof numero}`;
+            document.getElementById('pboolean').innerText = `Boolean: ${booleano} - Tipo: ${typeof booleano}`;
+            document.getElementById('pundefined').innerText = `Undefined: ${indefinido} - Tipo: ${typeof indefinido}`;
+            document.getElementById('pnull').innerText = `Null: ${nulo} - Tipo: ${typeof nulo}`;
+            document.getElementById('pobject').innerText = `Object: ${JSON.stringify(objeto)} - Tipo: ${typeof objeto}`;
+            document.getElementById('parray').innerText = `Array: [${array}] - Tipo: ${typeof array}`;
+
+            // Operações entre tipos diferentes
+            const operacoes = [
+                {
+                    expressao: '"5" + 3',
+                    resultado: "5" + 3,
+                    explicacao: "String + Number resulta em concatenação de strings"
+                },
+                {
+                    expressao: '"5" - 3',
+                    resultado: "5" - 3,
+                    explicacao: "String - Number converte a string para número e realiza subtração"
+                },
+                {
+                    expressao: 'true + 1',
+                    resultado: true + 1,
+                    explicacao: "Boolean true é convertido para 1 em operações numéricas"
+                },
+                {
+                    expressao: 'false + " texto"',
+                    resultado: false + " texto",
+                    explicacao: "Boolean é convertido para string e concatenado"
+                },
+                {
+                    expressao: 'null + 5',
+                    resultado: null + 5,
+                    explicacao: "Null é convertido para 0 em operações numéricas"
+                },
+                {
+                    expressao: 'undefined + 5',
+                    resultado: undefined + 5,
+                    explicacao: "Undefined com número resulta em NaN (Not a Number)"
+                },
+                {
+                    expressao: '"10" * "2"',
+                    resultado: "10" * "2",
+                    explicacao: "Strings numéricas são convertidas para números na multiplicação"
+                },
+                {
+                    expressao: '[1,2] + [3,4]',
+                    resultado: [1,2] + [3,4],
+                    explicacao: "Arrays são convertidos para strings e concatenados"
+                }
+            ];
+
+            // Exibir resultados na página
+            const container = document.getElementById('resultadosOperacoes');
+            container.innerHTML = '';
+
+            operacoes.forEach(op => {
+                const div = document.createElement('div');
+                div.className = 'operacao-item';
+                div.innerHTML = `
+                    <strong>${op.expressao} = ${op.resultado}</strong>
+                    <div class="explicacao">${op.explicacao}</div>
+                `;
+                container.appendChild(div);
+            });
+
+            // Mostrar no console
+            console.log("=== OPERAÇÕES NO CONSOLE ===");
+            operacoes.forEach(op => {
+                console.log(`${op.expressao} =`, op.resultado, `- ${op.explicacao}`);
+            });
+        }
+    </script>
 </body>
 </html>
