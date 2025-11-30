@@ -45,25 +45,6 @@
         </p>
     </div>
 
-    <p id="horaAtual" class="hora"></p>
-
-    <script>
-        // G. Exibir hora atual
-        function atualizarHora() {
-            const agora = new Date();
-            document.getElementById('horaAtual').innerHTML = 
-                `Hora atual: ${agora.toLocaleTimeString()}`;
-        }
-        setInterval(atualizarHora, 1000);
-
-        // E. Mensagem no console
-        console.log("Página carregada com sucesso!");
-
-        // F. Alert de saudação
-        window.onload = function() {
-            alert("Bem-vindo ao estudo sobre JavaScript!");
-            atualizarHora();
-        };
-    </script>
+   
 </body>
 </html>
