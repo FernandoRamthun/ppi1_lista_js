@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de IMC</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #219a52;
+        }
+        .resultado {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            display: none;
+        }
+        .imc-valor {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .classificacao {
+            font-size: 18px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .abaixo-peso { background-color: #f39c12; color: white; }
+        .normal { background-color: #27ae60; color: white; }
+        .sobrepeso { background-color: #e67e22; color: white; }
+        .obesidade1 { background-color: #e74c3c; color: white; }
+        .obesidade2 { background-color: #c0392b; color: white; }
+        .obesidade3 { background-color: #7d3c98; color: white; }
+        .imagem-perfil {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #imgPerfil {
+            max-width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .erro {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de IMC</h1>
+        
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" placeholder="Digite seu nome">
+        </div>
+
+        <div class="form-group">
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" step="0.1" placeholder="Ex: 70.5">
+        </div>
+
+        <div class="form-group">
+            <label for="altura">Altura (m):</label>
+            <input type="number" id="altura" step="0.01" placeholder="Ex: 1.75">
+        </div>
+
+        <button onclick="calcularIMC()">Calcular IMC</button>
+
+        <div id="resultado" class="resultado">
+            <h3>Resultado para: <span id="nomeUsuario"></span></h3>
+            <div class="imc-valor">Seu IMC: <span id="resultadoIMC"></span></div>
+            <div id="classificacao" class="classificacao"></div>
+            
+            <div class="imagem-perfil">
+                <img id="imgPerfil" src="" alt="Perfil de IMC">
+            </div>
+        </div>
+
+        <div id="mensagemErro" class="erro"></div>
+    </div>
+
+    <script>
+        function calcularIMC() {
+            // Obter valores dos campos
+            const nome = document.getElementById('nome').value.trim();
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const mensagemErro = document.getElementById('mensagemErro');
+            const resultadoDiv = document.getElementById('resultado');
+
+            // Limpar mensagens anteriores
+            mensagemErro.textContent = '';
+            resultadoDiv.style.display = 'none';
+
+            // Validar campos
+            if (!nome || isNaN(peso) || isNaN(altura)) {
+                mensagemErro.textContent = 'Por favor, preencha todos os campos corretamente.';
+                return;
+            }
+
+            if (peso <= 0 || altura <= 0) {
+                mensagemErro.textContent = 'Peso e altura devem ser valores positivos.';
+                return;
+            }
+
+            // Calcular IMC
+            const imc = peso / (altura * altura);
+            const imcFormatado = imc.toFixed(2);
+
+            // Exibir nome do usuário
+            document.getElementById('nomeUsuario').textContent = nome;
+
+            // Exibir valor do IMC
+            document.getElementById('resultadoIMC').textContent = imcFormatado;
+
+            // Classificar IMC e exibir imagem
+            classificarIMC(imc);
+
+            // Mostrar resultado
+            resultadoDiv.style.display = 'block';
+        }
+
+        function classificarIMC(imc) {
+            const classificacaoElem = document.getElementById('classificacao');
+            const imgPerfil = document.getElementById('imgPerfil');
+            
+            let classificacao = '';
+            let classeCSS = '';
+            let imagem = '';
+
+            // Classificação com if/else if
+            if (imc < 18.5) {
+                classificacao = 'Abaixo do peso';
+                classeCSS = 'abaixo-peso';
+                imagem = 'imgs/magro.png';
+            } else if (imc < 24.9) {
+                classificacao = 'Peso normal';
+                classeCSS = 'normal';
+                imagem = 'imgs/normal.png';
+            } else if (imc < 29.9) {
+                classificacao = 'Sobrepeso';
+                classeCSS = 'sobrepeso';
+                imagem = 'imgs/sobrepeso.png';
+            } else if (imc < 34.9) {
+                classificacao = 'Obesidade Grau 1';
+                classeCSS = 'obesidade1';
+                imagem = 'imgs/obeso1.png';
+            } else if (imc < 39.9) {
+                classificacao = 'Obesidade Grau 2';
+                classeCSS = 'obesidade2';
+                imagem = 'imgs/obeso2.png';
+            } else {
+                classificacao = 'Obesidade Grau 3 (Mórbida)';
+                classeCSS = 'obesidade3';
+                imagem = 'imgs/obeso3.png';
+            }
+
+            // Aplicar classificação
+            classificacaoElem.textContent = classificacao;
+            classificacaoElem.className = 'classificacao ' + classeCSS;
+
+            // Usar switch para definir a imagem (conforme solicitado)
+            const imcArredondado = Math.floor(imc);
+            switch(true) {
+                case (imcArredondado < 18):
+                    imgPerfil.src = 'imgs/magro.png';
+                    break;
+                case (imcArredondado >= 18 && imcArredondado <= 24):
+                    imgPerfil.src = 'imgs/normal.png';
+                    break;
+                case (imcArredondado >= 25 && imcArredondado <= 29):
+                    imgPerfil.src = 'imgs/sobrepeso.png';
+                    break;
+                case (imcArredondado >= 30 && imcArredondado <= 34):
+                    imgPerfil.src = 'imgs/obeso1.png';
+                    break;
+                case (imcArredondado >= 35 && imcArredondado <= 39):
+                    imgPerfil.src = 'imgs/obeso2.png';
+                    break;
+                default:
+                    imgPerfil.src = 'imgs/obeso3.png';
+            }
+
+            // Garantir que a imagem tenha alt text
+            imgPerfil.alt = 'Classificação: ' + classificacao;
+        }
+    </script>
+</body>
+</html>
