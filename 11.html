@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage - Nome</title>
+</head>
+<body>
+
+    <input type="text" id="nameInput" placeholder="Digite seu nome">
+    <button id="saveButton">Salvar</button>
+    <p id="greeting"></p>
+
+    <script>
+        // Verifica se existe nome salvo
+        const nomeSalvo = localStorage.getItem('nomeUsuario');
+        if (nomeSalvo) {
+            document.getElementById('greeting').textContent = "Olá, " + nomeSalvo + "!";
+        }
+
+        // Botão de salvar
+        document.getElementById('saveButton').addEventListener('click', function() {
+            const nome = document.getElementById('nameInput').value;
+
+            if (nome.trim() !== "") {
+                localStorage.setItem('nomeUsuario', nome);
+                document.getElementById('greeting').textContent = "Olá, " + nome + "!";
+            }
+        });
+    </script>
+
+</body>
+</html>
