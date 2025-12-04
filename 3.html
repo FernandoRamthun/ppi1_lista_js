@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de IMC</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        input, button { margin: 5px; padding: 8px; }
+        .resultado { margin-top: 20px; padding: 15px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Cálculo de IMC</h1>
+    
+    <div>
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="number" id="peso" placeholder="Peso (kg)" step="0.1">
+        <input type="number" id="altura" placeholder="Altura (m)" step="0.01">
+        <button onclick="calcularIMC()">Calcular</button>
+    </div>
+    
+    <div id="resultado" class="resultado" style="display:none;">
+        <h3>Resultado:</h3>
+        <p id="resultadoIMC"></p>
+        <p id="classificacao"></p>
+        <img id="imgPerfil" src="" alt="Perfil" width="100">
+    </div>
+
+    <script>
+        function calcularIMC() {
+            const nome = document.getElementById('nome').value;
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            
+            if (!nome || !peso || !altura) {
+                alert("Preencha todos os campos!");
+                return;
+            }
+            
+            const imc = peso / (altura * altura);
+            const imcFormatado = imc.toFixed(2);
+            
+            let classificacao = '';
+            let imagem = '';
+            
+            if (imc < 18.5) {
+                classificacao = 'Abaixo do peso';
+                imagem = 'imgs/magro.png';
+            } else if (imc < 24.9) {
+                classificacao = 'Peso normal';
+                imagem = 'imgs/normal.png';
+            } else if (imc < 29.9) {
+                classificacao = 'Sobrepeso';
+                imagem = 'imgs/sobrepeso.png';
+            } else if (imc < 34.9) {
+                classificacao = 'Obesidade Grau 1';
+                imagem = 'imgs/obeso1.png';
+            } else if (imc < 39.9) {
+                classificacao = 'Obesidade Grau 2';
+                imagem = 'imgs/obeso2.png';
+            } else {
+                classificacao = 'Obesidade Grau 3';
+                imagem = 'imgs/obeso3.png';
+            }
+            
+            document.getElementById('resultadoIMC').textContent = `IMC: ${imcFormatado}`;
+            document.getElementById('classificacao').textContent = `Classificação: ${classificacao}`;
+            document.getElementById('imgPerfil').src = imagem;
+            document.getElementById('resultado').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
