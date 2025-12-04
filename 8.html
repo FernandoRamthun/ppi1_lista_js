@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cores com Espaço</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .item { 
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="titulo">Pressione ESPAÇO para mudar cores</h1>
+
+    <div class="container">
+        <div class="item" id="item1">-</div>
+        <div class="item" id="item2">-</div>
+        <div class="item" id="item3">-</div>
+        <div class="item" id="item4">-</div>
+        <div class="item" id="item5">-</div>
+    </div>
+
+    <p>Contador: <span id="contador">0</span></p>
+
+    <script>
+        let contador = 0;
+
+        function gerarCor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+
+            const rgb = `rgb(${r}, ${g}, ${b})`;
+            const hex = "#" + 
+                r.toString(16).padStart(2, '0') +
+                g.toString(16).padStart(2, '0') +
+                b.toString(16).padStart(2, '0')
+            .toUpperCase();
+
+            return { rgb, hex };
+        }
+
+        function mudarCores() {
+            document.body.style.backgroundColor = gerarCor().rgb;
+
+            for (let i = 1; i <= 5; i++) {
+                const cor = gerarCor();
+                const item = document.getElementById(`item${i}`);
+                item.style.backgroundColor = cor.rgb;
+                item.textContent = cor.hex;
+            }
+
+            contador++;
+            document.getElementById('contador').textContent = contador;
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                event.preventDefault();
+                mudarCores();
+            }
+        });
+
+        mudarCores();
+    </script>
+</body>
+</html>
