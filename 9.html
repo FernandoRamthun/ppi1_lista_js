@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Estilo iOS</title>
+
+    <style>
+        body {
+            background: #a8d3e6;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .calculadora {
+            background: #dfe6e9;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 260px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.25);
+        }
+
+        .display {
+            background: #111;
+            color: white;
+            padding: 20px;
+            font-size: 32px;
+            text-align: right;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        button {
+            border: 1px solid #ccc;
+            padding: 18px;
+            font-size: 20px;
+            background: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #eee;
+        }
+
+        .operacao {
+            background: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .funcao {
+            background: #f2f2f2;
+        }
+
+        .igual {
+            background: #ff7f50;
+            color: white;
+            font-weight: bold;
+            grid-row: span 4;   
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculadora">
+    <div class="display" id="display">0</div>
+
+    <div class="grid">
+
+        <!-- Linha 1 -->
+        <button class="operacao" onclick="adicionar('+')">+</button>
+        <button class="operacao" onclick="adicionar('-')">−</button>
+        <button class="operacao" onclick="adicionar('*')">×</button>
+        <button class="operacao" onclick="adicionar('/')">÷</button>
+
+        <!-- Linha 2 -->
+        <button onclick="adicionar('7')">7</button>
+        <button onclick="adicionar('8')">8</button>
+        <button onclick="adicionar('9')">9</button>
+        <button class="igual" onclick="calcular()">=</button>
+
+        <!-- Linha 3 -->
+        <button onclick="adicionar('4')">4</button>
+        <button onclick="adicionar('5')">5</button>
+        <button onclick="adicionar('6')">6</button>
+
+        <!-- Linha 4 -->
+        <button onclick="adicionar('1')">1</button>
+        <button onclick="adicionar('2')">2</button>
+        <button onclick="adicionar('3')">3</button>
+
+        <!-- Linha 5 -->
+        <button onclick="adicionar('0')">0</button>
+        <button onclick="adicionar('.')">.</button>
+        <button class="funcao" onclick="limpar()">AC</button>
+
+    </div>
+</div>
+
+<script>
+    let display = document.getElementById('display');
+    let expressao = '';
+
+    function adicionar(valor) {
+        expressao += valor;
+        display.textContent = expressao || '0';
+    }
+
+    function limpar() {
+        expressao = '';
+        display.textContent = '0';
+    }
+
+    function calcular() {
+        try {
+            let resultado = eval(expressao);
+            display.textContent = resultado;
+            expressao = String(resultado);
+        } catch {
+            display.textContent = 'Erro';
+            expressao = '';
+        }
+    }
+</script>
+
+</body>
+</html>
