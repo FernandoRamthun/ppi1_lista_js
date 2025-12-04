@@ -22,7 +22,35 @@
     
     <div id="resultado" class="resultado"></div>
 
-    
+    <script>
+        function verificar() {
+            const texto = document.getElementById('palavra').value.trim();
+            
+            if (!texto) {
+                alert("Digite algo!");
+                return;
+            }
+            
+            const limpo = texto
+                .toLowerCase()
+                .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9]/g, '');
+            
+            const invertido = limpo.split('').reverse().join('');
+            const ehPalindromo = limpo === invertido;
+            
+            const resultado = document.getElementById('resultado');
+            resultado.className = `resultado ${ehPalindromo ? 'sim' : 'nao'}`;
+            resultado.innerHTML = `
+                <strong>${ehPalindromo ? '✅ É PALÍNDROMO!' : '❌ NÃO É PALÍNDROMO'}</strong><br>
+                Original: ${limpo}<br>
+                Invertido: ${invertido}
+            `;
+        }
+        
+                document.getElementById('palavra').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verificar();
+        });
     </script>
 </body>
 </html>
