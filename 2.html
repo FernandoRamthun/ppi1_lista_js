@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Variáveis</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button { padding: 10px; margin: 10px 0; }
+        p { background: #f0f0f0; padding: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>Tipos de Variáveis</h1>
+    <button onclick="mostrarTipos()">Mostrar Tipos</button>
+
+    <p id="pstring"></p>
+    <p id="pnumero"></p>
+    <p id="pboolean"></p>
+    <p id="pundefined"></p>
+    <p id="pnull"></p>
+    <p id="pobjeto"></p>
+    <p id="parray"></p>
+
+    <h3>Operações:</h3>
+    <p id="op1"></p>
+    <p id="op2"></p>
+    <p id="op3"></p>
+
+<script>
+function mostrarTipos() {
+
+    const texto = "JavaScript";
+    const numero = 42;
+    const booleano = true;
+    const indefinido = undefined;
+    const nulo = null;
+    const objeto = { nome: "Objeto" };
+    const array = [1, 2, 3];
+
+    document.getElementById("pstring").innerText =
+        `String: ${texto} - typeof = ${typeof texto}`;
+
+    document.getElementById("pnumero").innerText =
+        `Number: ${numero} - typeof = ${typeof numero}`;
+
+    document.getElementById("pboolean").innerText =
+        `Boolean: ${booleano} - typeof = ${typeof booleano}`;
+
+    document.getElementById("pundefined").innerText =
+        `Undefined: ${indefinido} - typeof = ${typeof indefinido}`;
+
+    document.getElementById("pnull").innerText =
+        `Null: ${nulo} - typeof = ${typeof nulo} (JavaScript considera null como 'object')`;
+
+    document.getElementById("pobjeto").innerText =
+        `Object: ${JSON.stringify(objeto)} - typeof = ${typeof objeto}`;
+
+    document.getElementById("parray").innerText =
+        `Array: [${array}] - typeof = ${typeof array} (arrays também são 'object')`;
+
+    // Operações
+    const op1 = "5" + 3;
+    const op2 = "5" - 3;
+    const op3 = true + 1;
+
+    document.getElementById("op1").innerText =
+        `"5" + 3 = ${op1} → concatenação (string ganha)`;
+
+    document.getElementById("op2").innerText =
+        `"5" - 3 = ${op2} → string vira número`;
+
+    document.getElementById("op3").innerText =
+        `true + 1 = ${op3} → true vira 1`;
+
+    console.log("Operações:", op1, op2, op3);
+}
+</script>
+
+</body>
+</html>
