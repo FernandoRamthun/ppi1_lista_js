@@ -22,7 +22,50 @@
 
     <p>Clique no canvas para desenhar círculos vermelhos.</p>
 
-    
+    <script>
+        const canvas = document.getElementById('meuCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Função para desenhar formas fixas
+        function desenhar() {
+            limparCanvas(); // Limpa antes de desenhar novamente
+
+            // Retângulo azul
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(50, 50, 100, 50);
+
+            // Círculo vermelho
+            ctx.beginPath();
+            ctx.fillStyle = 'red';
+            ctx.arc(200, 150, 30, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Texto preto
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText('Canvas!', 120, 250);
+        }
+
+        // Limpar canvas
+        function limparCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // Desenhar círculo no local do clique
+        canvas.addEventListener('click', function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            ctx.beginPath();
+            ctx.fillStyle = 'red';
+            ctx.arc(x, y, 15, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        // Desenha as formas iniciais ao carregar a página
+        desenhar();
+    </script>
 
 </body>
 </html>
