@@ -5,65 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O que é JavaScript?</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .hora {
-            color: #2c3e50;
-            font-weight: bold;
-            padding: 10px;
-            background-color: #ecf0f1;
-            border-radius: 5px;
-        }
+        body { font-family: Arial; padding: 20px; }
+        .hora { background: #eee; padding: 10px; margin: 10px 0; }
     </style>
 </head>
 <body>
-    <h1 id="tituloPrincipal">O que é JavaScript?</h1>
+    <h1 id="titulo">O que é JavaScript?</h1>
     
-    <div id="conteudo">
-        <p id="motivacao">
-            <strong>Motivação:</strong> O JavaScript foi criado para tornar as páginas web interativas. Antes dele, as páginas eram estáticas e não respondiam às ações dos usuários.
-        </p>
-        
-        <p id="execucao">
-            <strong>Execução no navegador vs servidor:</strong> No navegador o JavaScript roda no computador do usuário, enquanto no servidor (com Node.js) processa dados antes de enviar ao navegador.
-        </p>
-        
-        <p id="sandbox">
-            <strong>Sandbox no navegador:</strong> É um ambiente seguro que impede que o código acesse recursos do sistema operacional, protegendo o usuário.
-        </p>
-        
-        <p id="objetos">
-            <strong>Objetos globais:</strong> 
-            <em>document</em> - manipula a página HTML; 
-            <em>console</em> - exibe mensagens no console; 
-            <em>alert</em> - mostra caixas de diálogo.
-        </p>
-    </div>
-
+    <p id="motivacao"><strong>Motivação:</strong> Criado para tornar páginas web interativas.</p>
+    <p id="execucao"><strong>Navegador vs Servidor:</strong> No navegador roda no PC do usuário, no servidor (Node.js) processa antes de enviar.</p>
+    <p id="sandbox"><strong>Sandbox:</strong> Ambiente seguro que protege o sistema do usuário.</p>
+    <p id="objetos"><strong>Objetos globais:</strong> document (manipula HTML), console (exibe mensagens), alert (caixas de diálogo).</p>
+    
     <p id="horaAtual" class="hora"></p>
 
     <script>
-        // G. Exibir hora atual
         function atualizarHora() {
             const agora = new Date();
-            document.getElementById('horaAtual').innerHTML = 
-                `Hora atual: ${agora.toLocaleTimeString()}`;
+            document.getElementById('horaAtual').innerHTML = 'Hora: ' + agora.toLocaleTimeString();
         }
         setInterval(atualizarHora, 1000);
-
-        // E. Mensagem no console
-        console.log("Página carregada com sucesso!");
-
-        // F. Alert de saudação
-        window.onload = function() {
-            alert("Bem-vindo ao estudo sobre JavaScript!");
-            atualizarHora();
-        };
+        console.log("Página carregada!");
+        alert("Bem-vindo ao JavaScript!");
+        atualizarHora();
     </script>
 </body>
 </html>
