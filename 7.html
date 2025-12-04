@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudança de Cor</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            padding: 20px; 
+            transition: background-color 0.3s;
+            min-height: 100vh;
+        }
+        button { 
+            padding: 15px 30px; 
+            font-size: 18px; 
+            margin: 20px 0; 
+        }
+        .cor-info { 
+            padding: 10px; 
+            background: rgba(255,255,255,0.8); 
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mudança de Cor</h1>
+    <p>Clique no botão para mudar a cor de fundo</p>
+    
+    <button onclick="mudarCor()">Mudar Cor</button>
+    
+    <div class="cor-info">
+        <p>Cor atual: <span id="codigoCor">#FFFFFF</span></p>
+        <p>Vezes mudadas: <span id="contador">0</span></p>
+    </div>
+
+    <script>
+        let contador = 0;
+        
+        function mudarCor() {            
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            
+            const cor = `rgb(${r}, ${g}, ${b})`;
+            const hex = `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`.toUpperCase();
+            
+            document.body.style.backgroundColor = cor;
+            document.getElementById('codigoCor').textContent = hex;
+            
+            contador++;
+            document.getElementById('contador').textContent = contador;
+            
+            console.log(`Cor alterada para: ${hex}`);
+        }
+                
+        document.addEventListener('DOMContentLoaded', mudarCor);
+    </script>
+</body>
+</html>
