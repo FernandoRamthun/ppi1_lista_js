@@ -30,6 +30,7 @@ Conteúdos Abordados
 12 - Canvas - Desenho e manipulação gráfica
 
 Como Utilizar
+
 Cada exercício está em um arquivo HTML separado numerado de 1 a 12. Para visualizar qualquer exercício:
 
 Clone este repositório em seu computador
