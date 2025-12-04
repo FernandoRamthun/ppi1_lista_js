@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos JavaScript</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        button, input, div, select {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        #hoverDiv {
+            background: #e0e0e0;
+            width: 200px;
+            padding: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="alertButton">Clique aqui</button>
+    <input type="text" id="textInput" placeholder="Digite algo">
+    <div id="hoverDiv">Passe o mouse aqui</div>
+    <select id="colorSelect">
+        <option value="">Escolha uma cor</option>
+        <option value="blue">Azul</option>
+        <option value="green">Verde</option>
+        <option value="red">Vermelho</option>
+    </select>
+
+    <script>
+        // a) Quando o botão for clicado, exibir um alert() com uma mensagem.
+        const btn = document.getElementById("alertButton");
+        btn.addEventListener("click", function() {
+            alert("Botão clicado!");
+        });
+
+        // b) Quando o usuário digitar no campo de texto, exibir cada tecla no console (keydown).
+        const input = document.getElementById("textInput");
+        input.addEventListener("keydown", function(event) {
+            console.log("Tecla pressionada:", event.key);
+        });
+
+        // c) Ao focar o campo de texto, mudar a cor de fundo para amarelo (focus).
+        input.addEventListener("focus", function() {
+            input.style.backgroundColor = "yellow";
+        });
+
+        // d)  Ao sair do campo de texto, restaurar a cor original (blur).
+        input.addEventListener("blur", function() {
+            input.style.backgroundColor = "";
+        });
+
+        // e) Quando o mouse passar sobre a div, mudar sua cor de fundo (mouseover).
+        const div = document.getElementById("hoverDiv");
+        div.addEventListener("mouseover", function() {
+            div.style.backgroundColor = "lightgreen";
+        });
+
+        // f) Quando o mouse sair da div, restaurar a cor original (mouseout).
+        div.addEventListener("mouseout", function() {
+            div.style.backgroundColor = "";
+        });
+
+        // g) Ao escolher uma opção no select, alterar a cor de fundo da página (change).
+        const select = document.getElementById("colorSelect");
+        select.addEventListener("change", function() {
+            document.body.style.backgroundColor = select.value;
+        });
+    </script>
+
+</body>
+</html>
