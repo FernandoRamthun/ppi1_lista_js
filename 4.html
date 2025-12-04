@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Números</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        input, button { margin: 5px; padding: 8px; }
+        .historico { margin-top: 20px; max-height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Números</h1>
+    
+    <div>
+        <input type="number" id="minimo" value="1" placeholder="Mínimo">
+        <input type="number" id="maximo" value="100" placeholder="Máximo">
+        <button onclick="sortear()">Sortear</button>
+    </div>
+    
+    <div id="resultado" style="font-size: 24px; margin: 20px 0;"></div>
+    
+    <div class="historico">
+        <h3>Histórico:</h3>
+        <div id="lista"></div>
+    </div>
+
+    <script>
+        let historico = [];
+        let contador = {};
+        
+        function sortear() {
+            const min = parseInt(document.getElementById('minimo').value);
+            const max = parseInt(document.getElementById('maximo').value);
+            
+            if (min >= max) {
+                alert("Mínimo deve ser menor que máximo!");
+                return;
+            }
+            
+            const numero = Math.floor(Math.random() * (max - min + 1)) + min;
+            
+            // Conta as repetições
+            contador[numero] = (contador[numero] || 0) + 1;
+            
+            // Adicionar no histórico
+            historico.unshift(numero);
+            if (historico.length > 10) historico.pop();
+            
+            // Mostrar os resultado
+            const vezes = contador[numero];
+            document.getElementById('resultado').innerHTML = `
+                <strong>Número: ${numero}</strong><br>
+                ${vezes > 1 ? `(Sorteado ${vezes} vezes)` : ''}
+            `;
+            
+            // Atualiza lista
+            atualizarLista();
+        }
+        
+        function atualizarLista() {
+            const lista = document.getElementById('lista');
+            lista.innerHTML = historico.map(num => {
+                const vezes = contador[num] || 1;
+                return `<div>${num} ${vezes > 1 ? `(${vezes}x)` : ''}</div>`;
+            }).join('');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Números Primos</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        input, button { margin: 5px; padding: 8px; }
+        .primos { margin-top: 20px; }
+        .primo { display: inline-block; padding: 5px 10px; margin: 2px; background: #007bff; color: white; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Números Primos</h1>
+    
+    <div>
+        <input type="number" id="inicio" placeholder="Início" value="1">
+        <input type="number" id="fim" placeholder="Fim" value="100">
+        <button onclick="encontrarPrimos()">Encontrar Primos</button>
+    </div>    
+    
+    <div id="resultadoPrimos" class="primos"></div>
+    <script>
+        function encontrarPrimos() {
+            const inicio = parseInt(document.getElementById('inicio').value);
+            const fim = parseInt(document.getElementById('fim').value);
+            
+            if (inicio >= fim) {
+                alert("Início deve ser menor que fim!");
+                return;
+            }
+            
+            const primos = [];
+            
+            for (let num = Math.max(2, inicio); num <= fim; num++) {
+                let ehPrimo = true;
+                
+                if (num < 2) continue;
+                if (num === 2) {
+                    primos.push(num);
+                    continue;
+                }
+                if (num % 2 === 0) continue;
+                
+                for (let i = 3; i <= Math.sqrt(num); i += 2) {
+                    if (num % i === 0) {
+                        ehPrimo = false;
+                        break;
+                    }
+                }
+                
+                if (ehPrimo) primos.push(num);
+            }                        
+            const resultado = document.getElementById('resultadoPrimos');
+
+            if (primos.length === 0) {
+                resultado.innerHTML = "<p>Nenhum número primo encontrado.</p>";
+            } else {
+                resultado.innerHTML = `
+                    <p><strong>${primos.length} primos encontrados:</strong></p>
+                    <div>${primos.map(p => `<span class="primo">${p}</span>`).join('')}</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
